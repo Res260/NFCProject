@@ -1,4 +1,4 @@
-package com.example.res260.myapplication;
+package com.example.res260.NFCProject;
 
 import org.junit.Test;
 

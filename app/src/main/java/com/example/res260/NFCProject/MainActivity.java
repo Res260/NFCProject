@@ -1,4 +1,4 @@
-package com.example.res260.myapplication;
+package com.example.res260.NFCProject;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
