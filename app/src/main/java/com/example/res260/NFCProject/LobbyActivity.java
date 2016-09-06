@@ -1,6 +1,7 @@
 package com.example.res260.NFCProject;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class LobbyActivity extends AppCompatActivity {
 
     // Widgets
     private EditText editTextNom;
-    private Button buttonAjouter;
+    private Button buttonAjouter, buttonSuivant;
 
     private ListView listViewNoms;
     private ArrayAdapter adapterListViewNoms;
@@ -45,13 +47,6 @@ public class LobbyActivity extends AppCompatActivity {
 
         listViewNoms = (ListView) findViewById(R.id.listview_noms);
         listViewNoms.setAdapter(adapterListViewNoms);
-
-        listViewNoms.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String item = ((TextView)view).getText().toString();
-            }
-        });
         registerForContextMenu(listViewNoms);
 
         // Ajouter settings
@@ -60,6 +55,15 @@ public class LobbyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ajouterJoueur();
+            }
+        });
+
+        // Suivant settings
+        buttonSuivant = (Button) findViewById(R.id.button_suivant);
+        buttonSuivant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                suivant();
             }
         });
     }
@@ -78,7 +82,6 @@ public class LobbyActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        System.out.println("Clicked on: " + item.getTitle());
         if (item.getTitle().equals("Supprimer"))
             nameList.remove(info.position);
 
@@ -93,5 +96,11 @@ public class LobbyActivity extends AppCompatActivity {
             editTextNom.setText("");
             adapterListViewNoms.notifyDataSetChanged();
         }
+    }
+
+    public void suivant() {
+        Intent intent = new Intent(this, TeamSelectionActivity.class);
+        intent.putStringArrayListExtra("Joueurs", new ArrayList<>(nameList));
+        startActivity(intent);
     }
 }
