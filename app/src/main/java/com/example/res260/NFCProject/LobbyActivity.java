@@ -1,7 +1,12 @@
 package com.example.res260.NFCProject;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -45,9 +50,9 @@ public class LobbyActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String item = ((TextView)view).getText().toString();
-                System.out.println(item);
             }
         });
+        registerForContextMenu(listViewNoms);
 
         // Ajouter settings
         buttonAjouter = (Button) findViewById(R.id.button_ajouter);
@@ -57,6 +62,28 @@ public class LobbyActivity extends AppCompatActivity {
                 ajouterJoueur();
             }
         });
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        if (v.getId() == R.id.listview_noms) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+            menu.setHeaderTitle(nameList.get(info.position));
+            menu.add("Supprimer");
+            menu.add("Annuler");
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        System.out.println("Clicked on: " + item.getTitle());
+        if (item.getTitle().equals("Supprimer"))
+            nameList.remove(info.position);
+
+        adapterListViewNoms.notifyDataSetChanged();
+        return true;
     }
 
     public void ajouterJoueur() {
