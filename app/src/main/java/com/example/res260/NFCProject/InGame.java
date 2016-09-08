@@ -1,5 +1,6 @@
 package com.example.res260.NFCProject;
 
+import android.nfc.NfcAdapter;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,10 @@ public class InGame extends AppCompatActivity {
     private Button swap;
     private View NFCSpot;
     private CountDown timer;
+    private NfcAdapter adapter;
+    private NfcAdapter.ReaderCallback readCallback;
+    private Loop loop;
+    private Thread loopThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,15 @@ public class InGame extends AppCompatActivity {
         this.TextViewTime = (TextView) findViewById(R.id.textView);
         this.swap = (Button) findViewById(R.id.button);
         this.NFCSpot = (View) findViewById(R.id.NFCSpot);
+
+        this.loop = new Loop();
+        this.loopThread = new Thread(this.loop);
+        this.loopThread.start();
+
+        this.readCallback = new ReadCallback(loop);
+
+        adapter = NfcAdapter.getDefaultAdapter(this);
+        adapter.enableReaderMode(this, this.readCallback, NfcAdapter.FLAG_READER_NFC_A, null);
 
         timer = new CountDown(this.terroristTime, 1000);
         timer.start();
