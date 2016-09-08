@@ -1,15 +1,19 @@
 package com.example.res260.NFCProject;
 
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-
-import com.example.res260.NFCProject.R;
 
 public class NFCTest extends AppCompatActivity {
+
+    private NfcAdapter adapter;
+
+    private NfcAdapter.ReaderCallback readCallback;
+
+	private Loop loop;
+
+    private Thread loopThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +23,19 @@ public class NFCTest extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         System.out.println("SALUT");
+
+		this.loop = new Loop();
+		this.loopThread = new Thread(this.loop);
+		this.loopThread.start();
+
+        this.readCallback = new ReadCallback(loop);
+
+        adapter = NfcAdapter.getDefaultAdapter(this);
+		System.out.println("SALUT2");
+		adapter.enableReaderMode(this, this.readCallback, NfcAdapter.FLAG_READER_NFC_A, null);
+
+		System.out.println("SALUT3");
+
     }
 
 }
