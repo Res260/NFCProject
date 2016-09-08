@@ -1,8 +1,5 @@
 package com.example.res260.NFCProject;
 
-import android.nfc.NfcAdapter;
-import android.nfc.Tag;
-
 /**
  * Created by Res260 on 07/09/2016.
  * The thread loop to check the bomb status according to input/output from ReadCallBack:
@@ -11,15 +8,21 @@ import android.nfc.Tag;
  */
 public class Loop implements Runnable {
 
+	private final InGame inGame;
+
 	private long timestampTagBegin;
 
 	private long timestampTagEnd;
 
 	private boolean continueLoop;
 
+	private String playerName;
+	private String playerTeam;
+
 	private final long ACTIVATION_TIME = 5000;
 
-	public Loop() {
+	public Loop(InGame inGame) {
+		this.inGame = inGame;
 		this.timestampTagBegin = 0;
 		this.timestampTagEnd = 0;
 		this.continueLoop = true;
@@ -34,13 +37,17 @@ public class Loop implements Runnable {
 					System.out.println("ARMING/DISARMING");
 				} else {
 					System.out.println("TRIGGER DISARMED");
-
 				}
 			} else {
 				// Either has been armed/disarmed or failed attempt.
 				if(this.timestampTagEnd - this.timestampTagBegin >= ACTIVATION_TIME) {
 					//BOMB ARMED/DISARMED
 					System.out.println("BOMB ARMED/DISARMED");
+					if(!this.inGame.isBombeArmee()) {
+						this.inGame.ArmerBombe();
+					} else {
+						this.inGame.DesarmerBombe();
+					}
 					this.timestampTagBegin = 0;
 					this.timestampTagEnd = 0;
 				} else {
@@ -58,6 +65,10 @@ public class Loop implements Runnable {
 		}
 	}
 
+	public void uishit() {
+		this.inGame.ArmerBombe();
+	}
+
 	public long getTimestampTagBegin() {
 		return timestampTagBegin;
 	}
@@ -72,5 +83,21 @@ public class Loop implements Runnable {
 
 	public void setTimestampTagBegin(long timestampTagBegin) {
 		this.timestampTagBegin = timestampTagBegin;
+	}
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+
+	public String getPlayerTeam() {
+		return playerTeam;
+	}
+
+	public void setPlayerTeam(String playerTeam) {
+		this.playerTeam = playerTeam;
 	}
 }
