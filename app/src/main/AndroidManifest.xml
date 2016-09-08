@@ -15,12 +15,14 @@
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".TeamSelectionActivity"
-            android:label="@string/title_activity_team_select"/>
+            android:label="@string/title_activity_team_select" />
+        <activity android:name=".LoadingActivity"></activity>
     </application>
 
 </manifest>

@@ -11,4 +11,14 @@
     <string name="text_button_go">GO</string>
     <string name="text_terrorists">Terroristes</string>
     <string name="text_anti_terro">Anti-Terroristes</string>
+
+    <string name="text_rules">
+"Les terroristes auront 5 minutes pour planter la bombe.
+Les anti-terroristes doivent empêcher les terroristes de la planter.
+Si les terroristes réussissent à planter la bombe, les anti-terroristes ont 2 minutes pour la désactiver.
+Si les anti-terroristes réussissent à empêcher la bombe d'être plantée, ils gagnent la partie.
+Si la bombe explose, les terroristes gagnent la partie.
+Si une équipe au complet est éliminée, l'autre équipe gagne immédiatement sauf si la bombe est plantée.
+Dans ce cas, les anti-terroristes doivent désactiver la bombe pour gagner même si l'autre équipe est completement éliminée."
+    </string>
 </resources>
