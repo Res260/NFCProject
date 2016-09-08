@@ -10,10 +10,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 public class TeamSelectionActivity extends AppCompatActivity {
 
@@ -71,9 +71,27 @@ public class TeamSelectionActivity extends AppCompatActivity {
                 afficherJoueur(item, false);
             }
         });
+
+        Button go = (Button) findViewById(R.id.button_go);
+        go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                faireGO();
+            }
+        });
     }
 
     public void afficherJoueur(String nom, boolean isAnti) {
+        Intent intent = new Intent(this, CheckInActivity.class);
+        intent.putExtra("Nom", nom);
+        intent.putExtra("isAnti", isAnti);
+        startActivity(intent);
+    }
 
+    public void faireGO() {
+        Intent intent = new Intent(this, LoadingActivity.class);
+        intent.putStringArrayListExtra("Anti", new ArrayList<>(nameListAnti));
+        intent.putStringArrayListExtra("Terr", new ArrayList<>(nameListTerr));
+        startActivity(intent);
     }
 }
