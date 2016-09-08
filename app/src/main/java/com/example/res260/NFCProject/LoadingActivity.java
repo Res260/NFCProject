@@ -34,7 +34,7 @@ public class LoadingActivity extends AppCompatActivity {
     public void preparationTerminee() {
         Intent intent = new Intent(this, InGame.class);
         intent.putStringArrayListExtra("Anti", nameListAnti);
-        intent.putStringArrayListExtra("Anti", nameListTerr);
+        intent.putStringArrayListExtra("Terr", nameListTerr);
         startActivity(intent);
     }
 }
