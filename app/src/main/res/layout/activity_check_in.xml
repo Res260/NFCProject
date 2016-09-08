@@ -9,4 +9,44 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.res260.NFCProject.CheckInActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Sample Text"
+        android:id="@+id/textview_team"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Sample Name"
+        android:id="@+id/textview_checkin_name"
+        android:layout_below="@+id/textview_team"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:textSize="30dp" />
+
+    <View
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/terrorist_cercle"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/NFCSpotTerro"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="76dp" />
+
+    <View
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/antiterrorist_cercle"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/NFCSpotAntiTerro"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="76dp" />
 </RelativeLayout>

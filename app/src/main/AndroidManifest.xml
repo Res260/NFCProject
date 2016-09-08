@@ -47,7 +47,11 @@
             android:parentActivityName="com.example.res260.NFCProject.TeamSelectionActivity"/>
         <activity
             android:name=".CheckInActivity"
-            android:parentActivityName="com.example.res260.NFCProject.TeamSelectionActivity"/>
+            android:parentActivityName="com.example.res260.NFCProject.TeamSelectionActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.res260.NFCProject.TeamSelectionActivity" />
+        </activity>
     </application>
 
 </manifest>

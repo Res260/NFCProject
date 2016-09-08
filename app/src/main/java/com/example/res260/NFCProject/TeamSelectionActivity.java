@@ -31,18 +31,25 @@ public class TeamSelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_selection);
 
+        System.out.println(savedInstanceState);
+
         // Gather list
-        Bundle bundle = getIntent().getExtras();
-        List<String> nameList = bundle.getStringArrayList("Joueurs");
-        Collections.shuffle(nameList);
-        boolean lastWasAnti = false;
-        for (String name : nameList) {
-            if (lastWasAnti)
-                nameListTerr.add(name);
-            else
-                nameListAnti.add(name);
-            lastWasAnti = !lastWasAnti;
+        if (savedInstanceState != null) {
+            System.out.println("SAVED STATE :O");
+        } else {
+            Bundle bundle = getIntent().getExtras();
+            List<String> nameList = bundle.getStringArrayList("Joueurs");
+            Collections.shuffle(nameList);
+            boolean lastWasAnti = false;
+            for (String name : nameList) {
+                if (lastWasAnti)
+                    nameListTerr.add(name);
+                else
+                    nameListAnti.add(name);
+                lastWasAnti = !lastWasAnti;
+            }
         }
+
 
         // ListView settings ANTI TERRORIST
         adapterListViewAnti = new ArrayAdapter<>(this, R.layout.layout_listview_nom, nameListAnti);
@@ -72,13 +79,25 @@ public class TeamSelectionActivity extends AppCompatActivity {
             }
         });
 
-        Button go = (Button) findViewById(R.id.button_go);
-        go.setOnClickListener(new View.OnClickListener() {
+        buttonGo = (Button) findViewById(R.id.button_go);
+        buttonGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 faireGO();
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putStringArrayList("Anti", new ArrayList<>(nameListAnti));
+        savedInstanceState.putStringArrayList("Terr", new ArrayList<>(nameListTerr));
+    }
+
+    private void loadFromSaved(Bundle savedInstanceState) {
+        nameListAnti = savedInstanceState.getStringArrayList("Anti");
+        nameListTerr = savedInstanceState.getStringArrayList("Terr");
     }
 
     public void afficherJoueur(String nom, boolean isAnti) {
