@@ -4,7 +4,7 @@
 
     <string name="title_activity_lobby">Nerf Battle</string>
     <string name="title_activity_team_select">Team Selection</string>
-
+    <string name="title_activity_in_game">In Game</string>
     <string name="text_button_suivant">Suivant</string>
     <string name="text_button_ajouter">Ajouter</string>
     <string name="text_placeholder_nom">Nom</string>
