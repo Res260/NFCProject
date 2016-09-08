@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_app"
+    tools:context=".LobbyActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_button_suivant"
+        android:id="@+id/button_suivant"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dim_spacing_top_bottom"
+        android:textSize="30sp"
+        android:singleLine="false" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/edittext_nom"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dim_spacing_top_bottom"
+        android:textSize="30sp"
+        android:hint="@string/text_placeholder_nom" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_button_ajouter"
+        android:id="@+id/button_ajouter"
+        android:layout_below="@+id/edittext_nom"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dim_spacing_top_bottom"
+        android:textSize="30sp" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listview_noms"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/button_ajouter"
+        android:layout_marginTop="@dimen/dim_spacing_top_bottom"
+        android:layout_above="@+id/button_suivant"
+        android:layout_marginBottom="@dimen/dim_spacing_top_bottom"
+        android:drawSelectorOnTop="false" />
+</RelativeLayout>
