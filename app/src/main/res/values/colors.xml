@@ -3,7 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="terroriste">#e99d05</color>
-    <color name="antiterroriste">#3a25a3</color>
     <color name="black_overlay">#66000000</color>
+    <color name="counter_terrorist">#4A75B5</color>
+    <color name="terrorist">#C4AE6F</color>
+    <color name="background_suivant">#f0f0f0</color>
+    <color name="background_app">#0055ff</color>
 </resources>
