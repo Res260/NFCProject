@@ -34,6 +34,7 @@ public class Loop implements Runnable {
 					System.out.println("ARMING/DISARMING");
 				} else {
 					System.out.println("TRIGGER DISARMED");
+
 				}
 			} else {
 				// Either has been armed/disarmed or failed attempt.
