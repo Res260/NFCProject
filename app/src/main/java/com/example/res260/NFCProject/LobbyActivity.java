@@ -1,7 +1,9 @@
 package com.example.res260.NFCProject;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,8 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class LobbyActivity extends AppCompatActivity {
 
@@ -30,6 +34,8 @@ public class LobbyActivity extends AppCompatActivity {
     private ListView listViewNoms;
     private ArrayAdapter adapterListViewNoms;
 
+    private SharedPreferences sharedPreferences;
+
     /**
      * Liste de noms de joueurs.
      */
@@ -39,6 +45,8 @@ public class LobbyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
+
+        sharedPreferences = this.getSharedPreferences("Joueurs", Context.MODE_PRIVATE);
 
         editTextNom = (EditText) findViewById(R.id.edittext_nom);
 
@@ -99,8 +107,10 @@ public class LobbyActivity extends AppCompatActivity {
     }
 
     public void suivant() {
+        SharedPreferences.Editor ed = this.sharedPreferences.edit();
+        ed.putStringSet("Joueurs", new HashSet<>(nameList));
+        ed.apply();
         Intent intent = new Intent(this, TeamSelectionActivity.class);
-        intent.putStringArrayListExtra("Joueurs", new ArrayList<>(nameList));
         startActivity(intent);
     }
 }
