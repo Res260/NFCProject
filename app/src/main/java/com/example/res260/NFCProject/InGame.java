@@ -1,5 +1,7 @@
 package com.example.res260.NFCProject;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class InGame extends AppCompatActivity {
@@ -26,13 +30,22 @@ public class InGame extends AppCompatActivity {
     private Thread loopThread;
 	private ProgressBar fuseProgressBar;
 
+    private SharedPreferences sharedPreferences;
+    private Set<String> nameSetAnti, nameSetTerr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_in_game);
+
+        // Load names from shared pref
+        sharedPreferences = getSharedPreferences("Joueurs", Context.MODE_PRIVATE);
+        nameSetAnti = sharedPreferences.getStringSet("Anti", new HashSet<String>());
+        nameSetTerr = sharedPreferences.getStringSet("Terr", new HashSet<String>());
+
         this.TextViewTime = (TextView) findViewById(R.id.textView);
-		this.NFCSpot = (View) findViewById(R.id.NFCSpot);
 		this.fuseProgressBar= (ProgressBar) findViewById(R.id.fuseProgressBar);
+        this.NFCSpot = findViewById(R.id.NFCSpot);
 
         this.loop = new Loop(this);
         this.loopThread = new Thread(this.loop);
@@ -47,7 +60,6 @@ public class InGame extends AppCompatActivity {
         timer.start();
 
     }
-
 	public void SetProgress(final int perthousand) {
 		runOnUiThread(new Runnable() {
 			@Override
@@ -57,11 +69,11 @@ public class InGame extends AppCompatActivity {
 		});
 	}
 
-    public void ArmerBombe(){
+    public void ArmerBombe() {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				if(!timer.isDone) {
+				if (!timer.isDone) {
 					bombeArmee = true;
 					timer.cancel();
 					NFCSpot.setBackgroundResource(R.drawable.antiterrorist_cercle);
@@ -70,6 +82,16 @@ public class InGame extends AppCompatActivity {
 				}
 			}
 		});
+	}
+
+    public int getPlayerTeam(String name) {
+        if (this.nameSetAnti.contains(name)) {
+            return 1;
+        } else if (this.nameSetTerr.contains(name)) {
+            return 2;
+        } else {
+			return 0;
+		}
     }
 
     public void DesarmerBombe(final String savior) {
