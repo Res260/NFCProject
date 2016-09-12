@@ -1,12 +1,17 @@
 package com.example.res260.NFCProject;
 
+import android.app.Activity;
+
 /**
  * Created by Res260 on 07/09/2016.
  * The thread loop to check the bomb status according to input/output from ReadCallBack:
- * -When a tag was initialy read
+ * -When a tag was initially read
  * -When said tag was removed from the phone.
  */
 public class Loop implements Runnable {
+
+	public final static String terrorists = "Terroristes";
+	public final static String antiTerrorists = "Anti-terroristes";
 
 	private final InGame inGame;
 
@@ -35,18 +40,27 @@ public class Loop implements Runnable {
 				// Arming/disarming. Tag still on the phone. Perhaps has already been armed/disarmed.
 				if(System.currentTimeMillis() - this.timestampTagBegin < ACTIVATION_TIME) {
 					System.out.println("ARMING/DISARMING");
+					int progress = Math.round(((System.currentTimeMillis() - this.timestampTagBegin)
+							/ (float) ACTIVATION_TIME) * (float) 1000);
+					this.inGame.SetProgress(progress);
 				} else {
 					System.out.println("TRIGGER DISARMED");
+					this.inGame.SetProgress(1000);
 				}
 			} else {
 				// Either has been armed/disarmed or failed attempt.
 				if(this.timestampTagEnd - this.timestampTagBegin >= ACTIVATION_TIME) {
 					//BOMB ARMED/DISARMED
 					System.out.println("BOMB ARMED/DISARMED");
+					this.inGame.SetProgress(0);
 					if(!this.inGame.isBombeArmee()) {
-						this.inGame.ArmerBombe();
+						if(this.playerTeam.equals(Loop.terrorists)) {
+							this.inGame.ArmerBombe();
+						}
 					} else {
-						this.inGame.DesarmerBombe();
+						if(this.playerTeam.equals(Loop.antiTerrorists)) {
+							this.inGame.DesarmerBombe(this.playerName);
+						}
 					}
 					this.timestampTagBegin = 0;
 					this.timestampTagEnd = 0;
@@ -55,18 +69,15 @@ public class Loop implements Runnable {
 					this.timestampTagBegin = 0;
 					this.timestampTagEnd = 0;
 					System.out.println("FAILED TO ARM/DISARM BOMB");
+					this.inGame.SetProgress(0);
 				}
 			}
 			try {
-				Thread.sleep(100);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public void uishit() {
-		this.inGame.ArmerBombe();
 	}
 
 	public long getTimestampTagBegin() {
