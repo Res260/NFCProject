@@ -109,6 +109,7 @@ public class LobbyActivity extends AppCompatActivity {
     public void suivant() {
         SharedPreferences.Editor ed = this.sharedPreferences.edit();
         ed.putStringSet("Joueurs", new HashSet<>(nameList));
+        ed.putBoolean("Teamed", false);
         ed.apply();
         Intent intent = new Intent(this, TeamSelectionActivity.class);
         startActivity(intent);

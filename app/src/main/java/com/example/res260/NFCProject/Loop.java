@@ -35,24 +35,27 @@ public class Loop implements Runnable {
 
 
 	public void run() {
+		//Loop while we're in the activity.
 		while(this.continueLoop) {
 			if(this.timestampTagEnd < this.timestampTagBegin) {
 				// Arming/disarming. Tag still on the phone. Perhaps has already been armed/disarmed.
 				if(System.currentTimeMillis() - this.timestampTagBegin < ACTIVATION_TIME) {
-					System.out.println("ARMING/DISARMING");
+					//Arming/disarming in progress.
 					int progress = Math.round(((System.currentTimeMillis() - this.timestampTagBegin)
 							/ (float) ACTIVATION_TIME) * (float) 1000);
 					this.inGame.SetProgress(progress);
 				} else {
-					System.out.println("TRIGGER DISARMED");
+					//Arming/disarming done. Sets the progression to 100%.
 					this.inGame.SetProgress(1000);
 				}
 			} else {
 				// Either has been armed/disarmed or failed attempt.
 				if(this.timestampTagEnd - this.timestampTagBegin >= ACTIVATION_TIME) {
-					//BOMB ARMED/DISARMED
-					System.out.println("BOMB ARMED/DISARMED");
-					this.inGame.SetProgress(0);
+					//BOMB ARMED/DISARMED. Will be called one time when the tag is removed
+					//after successful arming/disarming attempt.
+					this.inGame.SetProgress(0); //Reset the progress bar.
+
+					//Either arm or disarm.
 					if(!this.inGame.isBombeArmee()) {
 						if(this.playerTeam.equals(Loop.terrorists)) {
 							this.inGame.ArmerBombe();
@@ -62,17 +65,21 @@ public class Loop implements Runnable {
 							this.inGame.DesarmerBombe(this.playerName);
 						}
 					}
+
+					//Resets timeStamps so it is not called more than once.
 					this.timestampTagBegin = 0;
 					this.timestampTagEnd = 0;
 				} else {
-					//FAILED TO ARM/DISARM BOMB
+					//FAILED TO ARM/DISARM BOMB OR nothing is happening/waiting.
 					this.timestampTagBegin = 0;
 					this.timestampTagEnd = 0;
-					System.out.println("FAILED TO ARM/DISARM BOMB");
+
+					//Ensure progress is set to 0.
 					this.inGame.SetProgress(0);
 				}
 			}
 			try {
+				//Reduces the CPU load.
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();

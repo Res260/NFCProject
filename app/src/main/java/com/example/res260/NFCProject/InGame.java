@@ -124,7 +124,6 @@ public class InGame extends AppCompatActivity {
             long millis = l;
             String ms = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(millis),
                     TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
-            System.out.println(ms);
             TextViewTime.setText(ms);
         }
 
