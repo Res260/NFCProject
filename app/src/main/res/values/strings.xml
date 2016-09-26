@@ -3,8 +3,8 @@
     <string name="app_name">Nerf Battle</string>
 
     <string name="title_activity_lobby">Nerf Battle</string>
-    <string name="title_activity_team_select">Team Selection</string>
-    <string name="title_activity_in_game">In Game</string>
+    <string name="title_activity_team_select">Sélection des équippes</string>
+    <string name="title_activity_in_game">Partie en cours</string>
     <string name="text_button_suivant">Suivant</string>
     <string name="text_button_ajouter">Ajouter</string>
     <string name="text_placeholder_nom">Nom</string>
@@ -15,13 +15,7 @@
     <string name="text_under_terrorists"><b>Terroristes</b></string>
     <string name="text_under_anti_terrorists"><b>Anti-Terroristes</b></string>
 
-    <string name="text_rules">
-"Les terroristes auront 5 minutes pour planter la bombe.
-Les anti-terroristes doivent empêcher les terroristes de la planter.
-Si les terroristes réussissent à planter la bombe, les anti-terroristes ont 2 minutes pour la désactiver.
-Si les anti-terroristes réussissent à empêcher la bombe d'être plantée, ils gagnent la partie.
-Si la bombe explose, les terroristes gagnent la partie.
-Si une équipe au complet est éliminée, l'autre équipe gagne immédiatement sauf si la bombe est plantée.
-Dans ce cas, les anti-terroristes doivent désactiver la bombe pour gagner même si l'autre équipe est completement éliminée."
-    </string>
+    <string name="text_rules">\"Les terroristes auront 5 minutes pour planter la bombe. Les anti-terroristes doivent empêcher les terroristes de la planter.\n\nSi les terroristes réussissent à planter la bombe, les anti-terroristes ont 2 minutes pour la désactiver.\nSi les anti-terroristes réussissent à empêcher la bombe d\'être plantée, ils gagnent la partie.\nSi la bombe explose, les terroristes gagnent la partie.\n\nSi une équipe au complet est éliminée, l\'autre équipe gagne immédiatement sauf si la bombe est plantée. Dans ce cas, les anti-terroristes doivent désactiver la bombe pour gagner même si l\'autre équipe est completement éliminée.\"</string>
+    <string name="place_tag_behind">Placez le tag derrière le téléphone</string>
+    <string name="title_activity_loading">Règlements</string>
 </resources>

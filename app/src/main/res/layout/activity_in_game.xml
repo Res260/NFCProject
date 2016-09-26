@@ -9,47 +9,53 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.res260.NFCProject.InGame">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:weightSum="1"
-        android:id="@+id/linearLayout">
+    <TextView
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:textSize="100sp"
+        android:textAlignment="center"
+        android:layout_toEndOf="@+id/imageView"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView"
-            android:layout_gravity="center_horizontal"
-            android:textSize="100dp"
-            android:textAlignment="center"/>
+    <ImageView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/imageView"
+		android:layout_gravity="right"/>
 
-        <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/fuseProgressBar"
-            android:layout_gravity="center_horizontal"
-            android:visibility="visible"
-            android:max="1000"
-            />
+    <View
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/terrorist_cercle"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/NFCSpot"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:layout_gravity="right"/>
+    <TextView
+        android:text="@string/place_tag_behind"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:layout_weight="1"
+        android:layout_alignBottom="@+id/NFCSpot"
+        android:layout_alignStart="@+id/NFCSpot"
+        android:layout_marginBottom="76dp"
+        android:textColor="@color/background_suivant"/>
 
-        <View
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:background="@drawable/terrorist_cercle"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="100dp"
-            android:id="@+id/NFCSpot"/>
-
-    </LinearLayout>
+    <ProgressBar
+		style="?android:attr/progressBarStyleHorizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/fuseProgressBar"
+		android:layout_gravity="center_horizontal"
+		android:visibility="visible"
+		android:max="1000"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_alignParentStart="true"/>
 
 </RelativeLayout>
