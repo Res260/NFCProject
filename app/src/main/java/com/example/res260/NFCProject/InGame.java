@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
 import android.os.CountDownTimer;
+import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -33,10 +34,18 @@ public class InGame extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private Set<String> nameSetAnti, nameSetTerr;
 
+    private PowerManager powerManager;
+    private PowerManager.WakeLock wakeLock;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_in_game);
+
+        // Set wakelock utils
+        powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        wakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK
+                                            | PowerManager.PARTIAL_WAKE_LOCK, "NFCProject");
 
         // Load names from shared pref
         sharedPreferences = getSharedPreferences("Joueurs", Context.MODE_PRIVATE);
@@ -60,6 +69,17 @@ public class InGame extends AppCompatActivity {
         timer.start();
 
     }
+
+    protected void onResume() {
+        super.onResume();
+        wakeLock.acquire();
+    }
+
+    protected void onPause() {
+        super.onPause();
+        wakeLock.release();
+    }
+
 	public void SetProgress(final int perthousand) {
 		runOnUiThread(new Runnable() {
 			@Override
