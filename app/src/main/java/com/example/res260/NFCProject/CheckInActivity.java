@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -86,7 +87,7 @@ public class CheckInActivity extends AppCompatActivity {
 		Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 		Ndef ndefTag = Ndef.get(tagFromIntent);
 		if(ndefTag.isWritable()) {
-			String text = this.nom + "|" + (this.isAnti
+			String text = "|" + this.nom + "|" + (this.isAnti
 					? getResources().getString(R.string.text_anti_terro)
 					: getResources().getString(R.string.text_terrorists));
 			try {
@@ -95,8 +96,12 @@ public class CheckInActivity extends AppCompatActivity {
 				ndefTag.connect();
 				ndefTag.writeNdefMessage(ndefMessage);
 				System.out.println("WRITE COMPLETE");
+				Toast toast = Toast.makeText(this, "Écriture réussie!", Toast.LENGTH_LONG);
+				toast.show();
 			} catch(Exception e) {
 				System.out.println(e.toString());
+				Toast toast = Toast.makeText(this, "Erreur lors de l'écriture.", Toast.LENGTH_LONG);
+				toast.show();
 			}
 		}
 		//do something with tagFromIntent
