@@ -35,7 +35,7 @@ public class InGame extends AppCompatActivity {
     private Set<String> nameSetAnti, nameSetTerr;
 
     private PowerManager powerManager;
-    private PowerManager.WakeLock wakeLock;
+    private PowerManager.WakeLock wakeLockProximity, wakeLockPartial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +44,9 @@ public class InGame extends AppCompatActivity {
 
         // Set wakelock utils
         powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        wakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK
-                                            | PowerManager.PARTIAL_WAKE_LOCK, "NFCProject");
+        wakeLockProximity = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK,
+                                                    "NFCProject");
+        wakeLockPartial = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "NFCProject");
 
         // Load names from shared pref
         sharedPreferences = getSharedPreferences("Joueurs", Context.MODE_PRIVATE);
@@ -70,14 +71,16 @@ public class InGame extends AppCompatActivity {
 
     }
 
-    protected void onResume() {
-        super.onResume();
-        wakeLock.acquire();
+    protected void onStart() {
+        super.onStart();
+        wakeLockProximity.acquire();
+        wakeLockPartial.acquire();
     }
 
-    protected void onPause() {
-        super.onPause();
-        wakeLock.release();
+    protected void onStop() {
+        super.onStop();
+        wakeLockPartial.release();
+        wakeLockProximity.release();
     }
 
 	public void SetProgress(final int perthousand) {
