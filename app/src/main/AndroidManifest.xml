@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.res260.NFCProject">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- Mandatory. -->
     <uses-permission android:name="android.permission.NFC" />
     <!-- Prevent phones without NFC to install it. -->
