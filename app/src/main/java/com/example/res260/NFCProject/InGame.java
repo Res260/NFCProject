@@ -2,6 +2,7 @@ package com.example.res260.NFCProject;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.nfc.NfcAdapter;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +30,6 @@ public class InGame extends AppCompatActivity {
     private Loop loop;
     private Thread loopThread;
 	private ProgressBar fuseProgressBar;
-
     private SharedPreferences sharedPreferences;
     private Set<String> nameSetAnti, nameSetTerr;
 
@@ -50,7 +50,6 @@ public class InGame extends AppCompatActivity {
         this.loop = new Loop(this);
         this.loopThread = new Thread(this.loop);
         this.loopThread.start();
-
         this.readCallback = new CallbackInGame(loop);
 
         adapter = NfcAdapter.getDefaultAdapter(this);
