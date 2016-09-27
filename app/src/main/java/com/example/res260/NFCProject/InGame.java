@@ -32,6 +32,7 @@ public class InGame extends AppCompatActivity {
 	private ProgressBar fuseProgressBar;
     private SharedPreferences sharedPreferences;
     private Set<String> nameSetAnti, nameSetTerr;
+    private MediaPlayer test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,9 @@ public class InGame extends AppCompatActivity {
 
         timer = new CountDown(this.terroristTime, 1000);
         timer.start();
+
+        this.test = this.test.create(this, R.raw.sound);
+        this.test.start();
 
     }
 	public void SetProgress(final int perthousand) {
