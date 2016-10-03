@@ -1,6 +1,9 @@
 package com.example.res260.NFCProject;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
+
+import java.io.IOException;
 
 /**
  * Created by Res260 on 07/09/2016.
@@ -19,7 +22,8 @@ public class Loop implements Runnable {
 
 	private long timestampTagEnd;
 
-	private SoundService soundService;
+	private MediaPlayer player;
+	private Boolean sonActive;
 
 	private boolean continueLoop;
 
@@ -33,8 +37,8 @@ public class Loop implements Runnable {
 		this.timestampTagBegin = 0;
 		this.timestampTagEnd = 0;
 		this.continueLoop = true;
-		this.soundService = new SoundService();
-		this.soundService.OnStartCommand();
+		this.sonActive = false;
+		this.player = this.player.create(inGame, R.raw.sound);
 	}
 
 
@@ -45,7 +49,11 @@ public class Loop implements Runnable {
 				// Arming/disarming. Tag still on the phone. Perhaps has already been armed/disarmed.
 				if(System.currentTimeMillis() - this.timestampTagBegin < ACTIVATION_TIME) {
 					//Arming/disarming in progress.
-					this.soundService.play();
+					if (!this.sonActive){
+						this.sonActive = true;
+						this.player.start();
+					}
+
 					int progress = Math.round(((System.currentTimeMillis() - this.timestampTagBegin)
 							/ (float) ACTIVATION_TIME) * (float) 1000);
 					this.inGame.SetProgress(progress);
@@ -54,11 +62,20 @@ public class Loop implements Runnable {
 					this.inGame.SetProgress(1000);
 				}
 			} else {
+				if (this.sonActive){
+					try{
+						this.player.stop();
+						this.player.prepare();
+						this.sonActive = false;
+					}catch (IOException e){
+						System.out.println(e.getMessage());
+					}
+
+				}
 				// Either has been armed/disarmed or failed attempt.
 				if(this.timestampTagEnd - this.timestampTagBegin >= ACTIVATION_TIME) {
 					//BOMB ARMED/DISARMED. Will be called one time when the tag is removed
 					//after successful arming/disarming attempt.
-					soundService.restart();
 					this.inGame.SetProgress(0); //Reset the progress bar.
 
 					//Either arm or disarm.
