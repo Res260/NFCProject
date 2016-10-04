@@ -1,9 +1,6 @@
 package com.example.res260.NFCProject;
 
-import android.app.Activity;
 import android.media.MediaPlayer;
-
-import java.io.IOException;
 
 /**
  * Created by Res260 on 07/09/2016.
@@ -38,7 +35,10 @@ public class Loop implements Runnable {
 		this.timestampTagEnd = 0;
 		this.continueLoop = true;
 		this.sonActive = false;
-		this.player = this.player.create(inGame, R.raw.sound);
+		System.out.println("flag 1");
+		this.player = MediaPlayer.create(inGame, R.raw.sound2);
+
+		System.out.println("player initié");
 	}
 
 
@@ -65,9 +65,10 @@ public class Loop implements Runnable {
 				if (this.sonActive){
 					try{
 						this.player.stop();
-						this.player.prepare();
+						this.player.release();
 						this.sonActive = false;
-					}catch (IOException e){
+						this.player = MediaPlayer.create(this.inGame, R.raw.sound2);
+					}catch (Exception e){
 						System.out.println(e.getMessage());
 					}
 

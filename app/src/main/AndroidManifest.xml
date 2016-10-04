@@ -18,6 +18,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LobbyActivity"
+			android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_lobby"
             android:theme="@style/FullscreenTheme">
@@ -29,6 +30,7 @@
         </activity>
         <activity
             android:name=".InGame"
+			android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_in_game">
             <intent-filter>
@@ -41,13 +43,16 @@
         </activity>
         <activity
             android:name=".TeamSelectionActivity"
+			android:screenOrientation="portrait"
             android:label="@string/title_activity_team_select" />
         <activity
             android:name=".LoadingActivity"
+			android:screenOrientation="portrait"
             android:label="@string/title_activity_loading"
             android:parentActivityName="com.example.res260.NFCProject.TeamSelectionActivity"/>
         <activity
             android:name=".CheckInActivity"
+			android:screenOrientation="portrait"
             android:parentActivityName="com.example.res260.NFCProject.TeamSelectionActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
